@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concert Collections</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Concert Collections</h1>
+        <p>Remember Where You Made Your Musical Memories</p>
+        <nav>
+            <a href="{{ url_for('home') }}" class="{{ 'active' if request.endpoint == 'home' else '' }}">Home</a>
+            <a href="{{ url_for('favorite_artists') }}" class="{{ 'active' if request.endpoint == 'favorite_artists' else '' }}">Favorite Artists</a>
+            <a href="{{ url_for('view_concerts') }}" class="{{ 'active' if request.endpoint == 'view_concerts' else '' }}">View Concerts</a>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+</body>
+</html>

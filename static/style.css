@@ -1,0 +1,51 @@
+body {
+    font-family: sans-serif;
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    background: #f7f7f7;
+    color: #222;
+}
+
+header {
+    margin-bottom: 1rem;
+}
+
+nav a {
+    margin-right: 1rem;
+    color: #2c5aa0;
+    text-decoration: none;
+}
+
+nav a.active {
+    font-weight: bold;
+    color: #17395e;
+    text-decoration: underline;
+}
+
+ul {
+    padding-left: 1.2rem;
+}
+
+li {
+    margin-bottom: 0.4rem;
+}
+
+form label {
+    display: block;
+    margin-top: 0.75rem;
+}
+
+form input, form select {
+    padding: 0.3rem;
+}
+
+form button {
+    background: #2c5aa0;
+    color: #fff;
+    border: none;
+    padding: 0.4rem 1rem;
+    border-radius: 4px;
+    margin-top: 0.75rem;
+    cursor: pointer;
+}

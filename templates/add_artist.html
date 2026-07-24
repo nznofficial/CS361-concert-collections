@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Add a favorite artist</h2>
+
+    <form method="POST">
+        {{ form.hidden_tag() }}
+
+        {{ form.name.label }} {{ form.name() }}
+        {{ form.genre.label }} {{ form.genre() }}
+        {{ form.submit() }}
+        <a href="{{ url_for('favorite_artists') }}">Cancel</a>
+    </form>
+{% endblock %}

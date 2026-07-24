@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <a href="{{ url_for('add_artist') }}">Add Favorite Artist</a>
+    
+    <ul>
+        {% for artist in artists %}
+            <li>{{ artist.name }} – {{ artist.genre }}</li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

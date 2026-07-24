@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <a href="{{ url_for('log_concert') }}">Log Concert</a>
+    
+    <ul>
+        {% for concert in concerts %}
+            <li>{{ concert.artist }} – {{ concert.venue }} – {{ concert.date }}</li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}
