@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>{{ artist.name }}</h1>
+    <p>{{ artist.genre }}</p>
+
+    <h2>Bio</h2>
+    <p>{{ artist.bio or "No bio added yet." }}</p>
+
+    <h2>Most Popular Songs</h2>
+    {% if artist.top_songs %}
+        <ul>
+            {% for song in artist.top_songs %}
+                <li>{{ song }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No songs added yet.</p>
+    {% endif %}
+
+    <a href="{{ url_for('favorite_artists') }}" class="btn">Back to Artists</a>
+{% endblock %}

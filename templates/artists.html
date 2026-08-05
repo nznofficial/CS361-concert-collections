@@ -5,7 +5,8 @@
     
     <ul>
         {% for artist in artists %}
-            <li>{{ artist.name }} – {{ artist.genre }}</li>
+            <li>{{ artist.name }} – {{ artist.genre }} - <a href="{{ url_for('artist_detail', artist_id=loop.index0) }}" class="btn">More Info</a>
+            </li>
         {% endfor %}
     </ul>
 

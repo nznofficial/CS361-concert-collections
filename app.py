@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, render_template, redirect, url_for, abort
 from forms import ArtistForm, ConcertForm
 import os
 from dotenv import load_dotenv
@@ -25,6 +25,12 @@ def add_artist():
         artists.append({'name': form.name.data, 'genre': form.genre.data})
         return redirect(url_for('favorite_artists'))
     return render_template('add_artist.html', form=form)
+
+@app.route('/artists/<int:artist_id>')
+def artist_detail(artist_id):
+    if artist_id >= len(artists):
+        abort(404)
+    return render_template('artist_detail.html', artist=artists[artist_id])
 
 @app.route('/concerts')
 def view_concerts():
