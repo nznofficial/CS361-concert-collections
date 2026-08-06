@@ -2,6 +2,7 @@ from flask import Flask, render_template, redirect, url_for, abort
 from forms import ArtistForm, ConcertForm
 import os
 from dotenv import load_dotenv
+import requests
 
 load_dotenv()
 app = Flask(__name__)
@@ -30,7 +31,28 @@ def add_artist():
 def artist_detail(artist_id):
     if artist_id >= len(artists):
         abort(404)
-    return render_template('artist_detail.html', artist=artists[artist_id])
+
+    artist = artists[artist_id]
+
+    try:
+        response = requests.get(
+            "http://localhost:8003/artist_bio",
+            params={"artist": artist['name']}
+        )
+        artist['bio'] = response.json().get("artist_bio")
+    except requests.RequestException:
+        artist['bio'] = None
+
+    try:
+        response = requests.get(
+            "http://localhost:8004/top_songs",
+            params={"artist": artist['name']}
+        )
+        artist['top_songs'] = response.json().get("top_songs")
+    except requests.RequestException:
+        artist['top_songs'] = None
+
+    return render_template('artist_detail.html', artist=artist)
 
 @app.route('/concerts')
 def view_concerts():
