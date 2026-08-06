@@ -7,7 +7,13 @@ class ArtistForm(FlaskForm):
     submit = SubmitField('Submit')
 
 class ConcertForm(FlaskForm):
-    artist = SelectField('Artist name - Artist must be a Favorite Artist')
+    artist = SelectField('Artist name')
     venue = StringField('Venue')
+    date = DateField('Date', format='%Y-%m-%d')
+    submit = SubmitField('Submit')
+
+class PlanConcertForm(FlaskForm):
+    artist = SelectField('Artist name')
+    city = SelectField('City')
     date = DateField('Date', format='%Y-%m-%d')
     submit = SubmitField('Submit')

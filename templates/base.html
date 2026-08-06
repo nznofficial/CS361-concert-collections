@@ -14,6 +14,7 @@
             <a href="{{ url_for('home') }}" class="{{ 'active' if request.endpoint == 'home' else '' }}">Home</a>
             <a href="{{ url_for('favorite_artists') }}" class="{{ 'active' if request.endpoint == 'favorite_artists' else '' }}">Favorite Artists</a>
             <a href="{{ url_for('view_concerts') }}" class="{{ 'active' if request.endpoint == 'view_concerts' else '' }}">View Concerts</a>
+            <a href="{{ url_for('view_plans') }}" class="{{ 'active' if request.endpoint == 'plan_concerts' else '' }}">Plan Concerts</a>
         </nav>
     </header>
 

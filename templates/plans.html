@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Planned Concerts</h2>
+
+    {% if plans %}
+        <ul>
+            {% for plan in plans %}
+                <li>{{ plan.title }} in {{ plan.description }} on {{ plan.due_date }}{% if plan.temp_hi %} — {{ plan.temp_hi }}°F / {{ plan.temp_lo }}°F{% endif %}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No concerts planned yet.</p>
+    {% endif %}
+
+    <a href="{{ url_for('plan_concerts') }}" class="btn">Plan a Concert</a>
+{% endblock %}

@@ -1,5 +1,5 @@
 from flask import Flask, render_template, redirect, url_for, abort
-from forms import ArtistForm, ConcertForm
+from forms import ArtistForm, ConcertForm, PlanConcertForm
 import os
 from dotenv import load_dotenv
 import requests
@@ -10,6 +10,13 @@ app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 
 artists = []
 concerts = []
+cities = {
+    'New York': (40.7128, -74.0060),
+    'Los Angeles': (34.0522, -118.2437),
+    'Las Vegas': (36.1699, -115.1398),
+    'Chicago': (41.8781, -87.6298),
+    'Corvallis': (44.5646, -123.2620),
+}
 
 @app.route('/')
 def home():
@@ -36,7 +43,7 @@ def artist_detail(artist_id):
 
     try:
         response = requests.get(
-            "http://localhost:8003/artist_bio",
+            "http://localhost:8005/artist_bio",
             params={"artist": artist['name']}
         )
         artist['bio'] = response.json().get("artist_bio")
@@ -69,6 +76,53 @@ def log_concert():
         concerts.append({'artist': form.artist.data, 'venue': form.venue.data, 'date': form.date.data })
         return redirect(url_for('view_concerts'))                         
     return render_template('log_concert.html', form=form)
+
+@app.route('/plans')
+def view_plans():
+    try:
+        response = requests.get("http://localhost:8003/tasks")
+        plans = response.json().get("tasks", [])
+    except requests.RequestException:
+        plans = []
+
+    for plan in plans:
+        coords = cities.get(plan['description'])
+        if not coords:
+            continue
+        lat, lon = coords
+        try:
+            response = requests.get(
+                "http://localhost:8002/forecast",
+                params={"lat": lat, "lon": lon, "date": plan['due_date']}
+            )
+            data = response.json()
+            plan['temp_hi'] = data.get('temp_max_f')
+            plan['temp_lo'] = data.get('temp_min_f')
+        except requests.RequestException:
+            pass
+
+    return render_template('plans.html', plans=plans)
+
+@app.route('/plan_concert', methods=['GET', 'POST'])
+def plan_concerts():
+    form = PlanConcertForm()
+    form.artist.choices = [(a['name'], a['name']) for a in artists]
+    form.city.choices = [(c, c) for c in cities]
+
+    if form.validate_on_submit():
+        requests.post(
+            "http://localhost:8003/tasks",
+            json={
+                "title": form.artist.data,
+                "description": form.city.data,
+                "due_date": form.date.data.isoformat(),
+                "status": "not_started",
+                "priority": "medium",
+            },
+        )
+        return redirect(url_for('view_plans'))
+
+    return render_template('plan_concert.html', form=form)
 
 if __name__ == '__main__':
     app.run(debug=True)
