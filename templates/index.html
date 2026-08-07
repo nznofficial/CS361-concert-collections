@@ -1,7 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <a href="{{ url_for('add_artist') }}">Add Favorite Artist</a>
-    <a href="{{ url_for('log_concert') }}">Log Concert</a>
-    <a href="{{ url_for('plan_concerts') }}">Plan a Concert</a>
+    <a href="{{ url_for('add_artist') }}" class = "btn">Add Favorite Artist</a>
+    <br>
+    <br>
+    <a href="{{ url_for('log_concert') }}" class = "btn">Log Concert</a>
+    <br>
+    <br>
+    <a href="{{ url_for('plan_concerts') }}" class = "btn">Plan a Concert</a>
 {% endblock %}

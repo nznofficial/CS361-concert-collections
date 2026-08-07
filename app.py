@@ -73,7 +73,7 @@ def log_concert():
         choices.append((artist['name'], artist['name']))
     form.artist.choices = choices
     if form.validate_on_submit():
-        concerts.append({'artist': form.artist.data, 'venue': form.venue.data, 'date': form.date.data })
+        concerts.append({'artist': form.artist.data, 'city': form.city.data, 'date': form.date.data })
         return redirect(url_for('view_concerts'))                         
     return render_template('log_concert.html', form=form)
 

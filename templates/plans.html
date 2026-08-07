@@ -6,7 +6,7 @@
     {% if plans %}
         <ul>
             {% for plan in plans %}
-                <li>{{ plan.title }} in {{ plan.description }} on {{ plan.due_date }}{% if plan.temp_hi %} — {{ plan.temp_hi }}°F / {{ plan.temp_lo }}°F{% endif %}</li>
+                <li>{{ plan.title }} in {{ plan.description }} on {{ plan.due_date }}{% if plan.temp_hi %} — {{ plan.temp_hi }}°F (High) / {{ plan.temp_lo }}°F (Low){% endif %}</li>
             {% endfor %}
         </ul>
     {% else %}

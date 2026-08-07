@@ -8,7 +8,11 @@
 
         {{ form.name.label }} {{ form.name() }}
         {{ form.genre.label }} {{ form.genre() }}
+        <br>
+        <br>
         {{ form.submit() }}
+        <br>
+        <br>
         <a href="{{ url_for('favorite_artists') }}">Cancel</a>
     </form>
 {% endblock %}

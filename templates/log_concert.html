@@ -7,9 +7,13 @@
         {{ form.hidden_tag() }}
 
         {{ form.artist.label }} {{ form.artist() }}
-        {{ form.venue.label }} {{ form.venue() }}
+        {{ form.city.label }} {{ form.city() }}
         {{ form.date.label }} {{ form.date() }}
+        <br>
+        <br>
         {{ form.submit() }}
+        <br>
+        <br>
         <a href="{{ url_for('view_concerts') }}">Cancel</a>
     </form>
 {% endblock %}

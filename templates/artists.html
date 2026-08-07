@@ -1,13 +1,18 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <a href="{{ url_for('add_artist') }}">Add Favorite Artist</a>
-    
-    <ul>
-        {% for artist in artists %}
-            <li>{{ artist.name }} – {{ artist.genre }} - <a href="{{ url_for('artist_detail', artist_id=loop.index0) }}" class="btn">More Info</a>
-            </li>
-        {% endfor %}
-    </ul>
+    <h2>Favorite Artists</h2>
+
+    {% if artists %}    
+        <ul>
+            {% for artist in artists %}
+                <li>{{ artist.name }} – {{ artist.genre }} - <a href="{{ url_for('artist_detail', artist_id=loop.index0) }}" class ="btn">More Info</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No artists added.</p>
+    {% endif %}
+
+    <a href="{{ url_for('add_artist') }}" class = "btn">Add Favorite Artist</a>
 
 {% endblock %}

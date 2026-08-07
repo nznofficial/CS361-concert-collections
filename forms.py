@@ -8,7 +8,7 @@ class ArtistForm(FlaskForm):
 
 class ConcertForm(FlaskForm):
     artist = SelectField('Artist name')
-    venue = StringField('Venue')
+    city = StringField('City')
     date = DateField('Date', format='%Y-%m-%d')
     submit = SubmitField('Submit')
 

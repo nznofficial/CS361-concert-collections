@@ -1,12 +1,18 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <a href="{{ url_for('log_concert') }}">Log Concert</a>
-    
-    <ul>
-        {% for concert in concerts %}
-            <li>{{ concert.artist }} – {{ concert.venue }} – {{ concert.date }}</li>
-        {% endfor %}
-    </ul>
+    <h2>Attended Concerts</h2>
 
+    {% if concerts %}
+        <ul>
+            {% for concert in concerts %}
+                <li>{{ concert.artist }} – {{ concert.city }} – {{ concert.date }}</li>
+            {% endfor %}
+        </ul>
+
+    {% else %}
+       <p>No past concerts logged.</p>
+    {% endif %}
+
+    <a href="{{ url_for('log_concert') }}" class = "btn">Log Concert</a>
 {% endblock %}
