@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, abort
+from flask import Flask, render_template, redirect, url_for, abort, request
 from forms import ArtistForm, ConcertForm, PlanConcertForm
 import os
 from dotenv import load_dotenv
@@ -17,6 +17,13 @@ cities = {
     'Chicago': (41.8781, -87.6298),
     'Corvallis': (44.5646, -123.2620),
 }
+
+def convert_temp(value):
+    response = requests.get(
+        "http://localhost:8006/convert",
+        params={"value": value, "from_unit": "F", "to_unit": "C"},
+    )
+    return response.json()["converted_value"]
 
 @app.route('/')
 def home():
@@ -79,6 +86,8 @@ def log_concert():
 
 @app.route('/plans')
 def view_plans():
+    units = request.args.get('units', 'F')
+
     try:
         response = requests.get("http://localhost:8003/tasks")
         plans = response.json().get("tasks", [])
@@ -86,6 +95,9 @@ def view_plans():
         plans = []
 
     for plan in plans:
+        plan['temp_hi'] = None
+        plan['temp_lo'] = None
+
         coords = cities.get(plan['description'])
         if not coords:
             continue
@@ -101,7 +113,14 @@ def view_plans():
         except requests.RequestException:
             pass
 
-    return render_template('plans.html', plans=plans)
+        if units == 'C' and plan['temp_hi'] is not None:
+            try:
+                plan['temp_hi'] = convert_temp(plan['temp_hi'])
+                plan['temp_lo'] = convert_temp(plan['temp_lo'])
+            except requests.RequestException:
+                pass
+
+    return render_template('plans.html', plans=plans, units=units)
 
 @app.route('/plan_concert', methods=['GET', 'POST'])
 def plan_concerts():

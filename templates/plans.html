@@ -3,10 +3,16 @@
 {% block content %}
     <h2>Planned Concerts</h2>
 
+    {% if units == "C" %}
+        <a href="{{ url_for('view_plans', units='F') }}" class="btn">Show °F</a>
+    {% else %}
+        <a href="{{ url_for('view_plans', units='C') }}" class="btn">Show °C</a>
+    {% endif %}
+
     {% if plans %}
         <ul>
             {% for plan in plans %}
-                <li>{{ plan.title }} in {{ plan.description }} on {{ plan.due_date }}{% if plan.temp_hi %} — {{ plan.temp_hi }}°F (High) / {{ plan.temp_lo }}°F (Low){% endif %}</li>
+                <li>{{ plan.title }} in {{ plan.description }} on {{ plan.due_date }}{% if plan.temp_hi is not none %} — {{ plan.temp_hi }}°{{ units }} (High) / {{ plan.temp_lo }}°{{ units }} (Low){% endif %}</li>
             {% endfor %}
         </ul>
     {% else %}

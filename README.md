@@ -4,13 +4,13 @@ Remember Where You Made Your Musical Memories
 
 A Flask web app for tracking your favorite artists, logging concerts you have
 attended, and planning concerts you want to see. Artist details and concert
-plans are provided by four independent microservices.
+plans are provided by five independent microservices.
 
 ## Features
 
 - Add favorite artists and view their biography and top songs
 - Log past concerts with artist, city, and date
-- Plan upcoming concerts and see the weather forecast for each one
+- Plan upcoming concerts and see the weather forecast for each one in Deg F or Deg C
 
 ## Setup
 
@@ -45,6 +45,7 @@ process and must be started before use.
 | 8003 | Task | Planned concerts |
 | 8004 | Top Songs | Artist detail |
 | 8005 | Artist Biography | Artist detail |
+| 8006 | Unit Conversion | Planned concerts |
 
 ## Pages
 
