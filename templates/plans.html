@@ -10,11 +10,30 @@
     {% endif %}
 
     {% if plans %}
-        <ul>
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Location</th>
+                <th>Status</th>
+                <th>Date</th>
+                <th>High</th>
+                <th>Low</th>
+            </tr>
+        </thead>
+        <tbody>
             {% for plan in plans %}
-                <li>{{ plan.title }} in {{ plan.description }} on {{ plan.due_date }}{% if plan.temp_hi is not none %} — {{ plan.temp_hi }}°{{ units }} (High) / {{ plan.temp_lo }}°{{ units }} (Low){% endif %}</li>
+                <tr>
+                    <td>{{ plan.title }}</td>
+                    <td>{{ plan.description }}</td>
+                    <td>{{ plan.status }}</td>
+                    <td>{{ plan.due_date }}</td>
+                    <td>{% if plan.temp_hi is not none %}{{ plan.temp_hi }}°{{ units }}{% endif %}</td>
+                    <td>{% if plan.temp_lo is not none %}{{ plan.temp_lo }}°{{ units }}{% endif %}</td>
+                </tr>
             {% endfor %}
-        </ul>
+        </tbody>
+    </table>
     {% else %}
         <p>No concerts planned yet.</p>
     {% endif %}

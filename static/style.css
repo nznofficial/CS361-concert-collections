@@ -59,3 +59,18 @@ form button {
     text-decoration: none;
     font-size: 0.85rem;
 }
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    padding: 8px 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background: #f2f2f2;
+}

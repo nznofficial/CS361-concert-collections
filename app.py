@@ -23,7 +23,7 @@ def convert_temp(value):
         "http://localhost:8006/convert",
         params={"value": value, "from_unit": "F", "to_unit": "C"},
     )
-    return response.json()["converted_value"]
+    return round(response.json()["converted_value"], 1)
 
 @app.route('/')
 def home():
